@@ -1,0 +1,2 @@
+StationLength = 1
+Delimiter = 
