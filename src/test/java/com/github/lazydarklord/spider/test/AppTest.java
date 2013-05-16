@@ -1,4 +1,4 @@
-package com.github.lazydarklord.spider;
+package com.github.lazydarklord.spider.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
