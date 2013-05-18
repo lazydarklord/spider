@@ -400,7 +400,6 @@ public class JourneyPlannerView
     private void hndlCalculateDistance()
     {
         String input = txtDistance.getText();
-        String delim =  cm.getConfig("input-calc-delim");
         StringTokenizer strtok = new StringTokenizer(input, cm.getConfig("input-calc-delim"));
 
         List<Station> stations = new LinkedList<Station>();

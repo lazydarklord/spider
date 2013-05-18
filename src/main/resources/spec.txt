@@ -1,2 +1,5 @@
-StationLength = 1
-Delimiter = 
+default-delim=,
+input-calc-delim= -
+input-trips-delim=\u0020to
+input-shortest-delim=\u0020to,
+default-routes=AB12,AD19,AE20,AG16,BC5,BD13,BI15,CD5,DE7,EF5,FA5,GF11,HA4,HB19,HG6,IJ10,IH21,JB7,JC15
