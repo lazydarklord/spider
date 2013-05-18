@@ -503,4 +503,12 @@ public class JourneyPlannerView
         }
         lblResultShortestRoute.setText("Result: " + result);
     }
+
+    /**
+     * @return the frame
+     */
+    public JFrame getFrame()
+    {
+        return frame;
+    }
 }
