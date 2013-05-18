@@ -44,8 +44,8 @@ public class ConfigManager
     {
         config.put("default-delim", ",");   // default delimiter
         config.put("input-calc-delim", "-");    // delimiter for calculate distance input
-        config.put("input-trips-delim", " to"); // delimiter for all trips input
-        config.put("input-shortest-delim", " to");  // delimiter for shortest route input
+        config.put("input-trips-delim", " to,"); // delimiter for all trips input
+        config.put("input-shortest-delim", " to,");  // delimiter for shortest route input
         config.put("default-routes",
             "AB12,AD19,AE20,AG16,BC5,BD13,BI15,CD5,DE7,EF5,FA5,GF11,HA4,HB19,HG6,IJ10,IH21,JB7,JC15");  // default routes
     }

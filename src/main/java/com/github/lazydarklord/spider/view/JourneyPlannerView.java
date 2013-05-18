@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import com.github.lazydarklord.spider.config.ConfigManager;
 import com.github.lazydarklord.spider.model.Graph;
 import com.github.lazydarklord.spider.model.GraphManager;
 import com.github.lazydarklord.spider.model.JourneyPlanner;
@@ -40,7 +41,9 @@ import com.github.lazydarklord.spider.model.Trip;
  */
 public class JourneyPlannerView
 {
-
+    /**Config Manager*/
+    private ConfigManager cm;
+    
     /** The frame. */
     private JFrame frame;
 
@@ -151,6 +154,7 @@ public class JourneyPlannerView
      */
     public JourneyPlannerView()
     {
+        this.cm = ConfigManager.getInstance();
         initialize();
     }
 
@@ -162,6 +166,7 @@ public class JourneyPlannerView
     public JourneyPlannerView(JourneyPlanner jp)
     {
         this.jp = jp;
+        this.cm = ConfigManager.getInstance();
         initialize();
     }
 
@@ -395,7 +400,8 @@ public class JourneyPlannerView
     private void hndlCalculateDistance()
     {
         String input = txtDistance.getText();
-        StringTokenizer strtok = new StringTokenizer(input, "-");
+        String delim =  cm.getConfig("input-calc-delim");
+        StringTokenizer strtok = new StringTokenizer(input, cm.getConfig("input-calc-delim"));
 
         List<Station> stations = new LinkedList<Station>();
 
@@ -430,7 +436,7 @@ public class JourneyPlannerView
     private void hndlAllTrips()
     {
         String input = txtAllTrips.getText();
-        StringTokenizer strtok = new StringTokenizer(input, " to,");
+        StringTokenizer strtok = new StringTokenizer(input, cm.getConfig("input-trips-delim"));
 
         List<Station> stations = new LinkedList<Station>();
         // Break input into multiple stations using a string tokenizer.
@@ -481,7 +487,7 @@ public class JourneyPlannerView
     private void hndlShortestRoute()
     {
         String input = txtShortestDistance.getText();
-        StringTokenizer strtok = new StringTokenizer(input, " to");
+        StringTokenizer strtok = new StringTokenizer(input, cm.getConfig("input-shortest-delim"));
 
         List<Station> stations = new LinkedList<Station>();
         // Break input into multiple stations using a string tokenizer. Each token is a station.
