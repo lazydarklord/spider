@@ -1,5 +1,10 @@
 package com.github.lazydarklord.spider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import com.github.lazydarklord.spider.config.ConfigManager;
 import com.github.lazydarklord.spider.model.Graph;
 import com.github.lazydarklord.spider.model.GraphManager;
 import com.github.lazydarklord.spider.model.JourneyPlanner;
@@ -16,21 +21,28 @@ public class App
 
     public static void main(String[] args)
     {
+        ConfigManager cm = ConfigManager.getInstance();
+
+        // Load default routes from config manager
+        String defaultRoutesText = cm.getConfig("default-routes");
+        StringTokenizer strtok = new StringTokenizer(defaultRoutesText, cm.getConfig("default-delim"));
+        List<String> defaultRoutesList = new ArrayList<String>();
+
+        while (strtok.hasMoreTokens())
+        {
+            defaultRoutesList.add(strtok.nextToken());
+        }
+        String[] defaultRoutes = defaultRoutesList.toArray(new String[0]);
+
+        // Create a Journey Planner model and initialize values with the default routes
         JourneyPlanner jp;
-
         Graph graph;
-
-        String[] routesText =
-            {"AB12", "AD19", "AE20", "AG16", "BC5", "BD13", "BI15", "CD5", "DE7", "EF5", "FA5", "GF11", "HA4", "HB19",
-            "HG6", "IJ10", "IH21", "JB7", "JC15"};
-
         GraphManager gm = new GraphManager();
-        gm.loadGraph(routesText);
-
+        gm.loadGraph(defaultRoutes);
         graph = gm.getGraph();
-
         jp = new JourneyPlanner(graph);
 
+        // Display the Journey Planner view
         JourneyPlannerView window = new JourneyPlannerView(jp);
         window.getFrame().setVisible(true);
     }
