@@ -96,7 +96,7 @@ public class Route
     @Override
     public String toString()
     {
-        return this.getSource() + "->" + this.getDestination() + "(" + this.getDestination() + ")";
+        return this.getSource() + "->" + this.getDestination() + "(" + this.getDistance() + ")";
     }
 
 }

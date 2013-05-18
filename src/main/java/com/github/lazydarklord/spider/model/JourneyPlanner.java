@@ -202,7 +202,7 @@ public class JourneyPlanner
             {
                 for (Trip trip : this.tripDict.get(key))
                 {
-                    if (trip.getHopCount() <= maxStops)
+                    if (trip.getHopCount()-1 <= maxStops)
                     {
                         trips.add(trip);
                     }
@@ -213,7 +213,8 @@ public class JourneyPlanner
             {
                 for (Trip trip : this.tripDict.get(key))
                 {
-                    if (trip.getHopCount() == exactStops)
+                    // Subtract 1 as the hop to destination is also counted
+                    if (trip.getHopCount()-1 == exactStops)
                     {
                         trips.add(trip);
                     }

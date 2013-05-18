@@ -94,15 +94,11 @@ public class JourneyPlannerTest
     @Test
     public void testGetAllTrips()
     {
-        for(Trip trip: this.jp.getAllTrips(this.A, this.C, -1, -1))
-        {
-            System.out.println("Possible trip: "+trip);
-        }
-        assertEquals(1, this.jp.getAllTrips(this.A, this.C, -1, 4).size());
-        assertEquals(1, this.jp.getAllTrips(this.A, this.C, 2, -1).size());
-        assertEquals(2, this.jp.getAllTrips(this.A, this.C, 4, -1).size());
-        assertEquals(2, this.jp.getAllTrips(this.A, this.C, -1, -1).size());
-        
+        assertEquals(1, this.jp.getAllTrips(this.A, this.C, -1, 3).size());
+        assertEquals(1, this.jp.getAllTrips(this.A, this.C, 1, -1).size());
+        assertEquals(2, this.jp.getAllTrips(this.A, this.C, 3, -1).size());
+        assertEquals(2, this.jp.getAllTrips(this.A, this.C, 3, 1).size());
+        assertEquals(2, this.jp.getAllTrips(this.A, this.C, -1, -1).size());        
     }
 
     /**
