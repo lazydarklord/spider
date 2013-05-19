@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.github.lazydarklord.spider.Util.Print;
+
 /**
  * Journey Planner
  */
@@ -23,9 +25,6 @@ public class JourneyPlanner
     public JourneyPlanner(Graph graph)
     {
         this.graph = graph;
-        this.tripDict = new HashMap<String, Set<Trip>>();
-        this.routeDict = new HashMap<String, Double>();
-        this.tripList = new LinkedList<Trip>();
         this.init();
     }
 
@@ -34,6 +33,9 @@ public class JourneyPlanner
      */
     public void init()
     {
+        this.tripDict = new HashMap<String, Set<Trip>>();
+        this.routeDict = new HashMap<String, Double>();
+        this.tripList = new LinkedList<Trip>();
         this.computeAllPaths();
         this.generateDictionaries();
     }
@@ -48,6 +50,7 @@ public class JourneyPlanner
             List<Station> visited = new ArrayList<Station>();
             computePathsForNode(src, null, null, visited);
         }
+        Print.printTripList(this.tripList);
     }
 
     /**
@@ -101,11 +104,11 @@ public class JourneyPlanner
                 computePathsForNode(outRoute.destination, outRoute, trip, new ArrayList<Station>(visited));
             }
         }
-
         if (trip != null)
         {
             trip.removeLastHop(); // remove the hop from the trip list
         }
+
     }
 
     /**
@@ -197,12 +200,12 @@ public class JourneyPlanner
         {
             TreeSet<Trip> trips = new TreeSet<Trip>(new TripDistanceComparator());
 
-            // check if max stops has been set 
+            // check if max stops has been set
             if (maxStops > -1)
             {
                 for (Trip trip : this.tripDict.get(key))
                 {
-                    if (trip.getHopCount()-1 <= maxStops)
+                    if (trip.getHopCount() - 1 <= maxStops)
                     {
                         trips.add(trip);
                     }
@@ -214,7 +217,7 @@ public class JourneyPlanner
                 for (Trip trip : this.tripDict.get(key))
                 {
                     // Subtract 1 as the hop to destination is also counted
-                    if (trip.getHopCount()-1 == exactStops)
+                    if (trip.getHopCount() - 1 == exactStops)
                     {
                         trips.add(trip);
                     }
@@ -257,6 +260,23 @@ public class JourneyPlanner
         }
 
         return null;
+    }
+
+    /**
+     * @return the graph
+     */
+    public Graph getGraph()
+    {
+        return graph;
+    }
+
+    /**
+     * @param graph the graph to set
+     */
+    public void setGraph(Graph graph)
+    {
+        this.graph = graph;
+        this.init();
     }
 
 }

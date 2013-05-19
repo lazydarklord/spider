@@ -24,7 +24,7 @@ public class App
         ConfigManager cm = ConfigManager.getInstance();
 
         // Load default routes from config manager
-        String defaultRoutesText = cm.getConfig("default-routes");
+        String defaultRoutesText = cm.getConfig("default-routes-short");
         StringTokenizer strtok = new StringTokenizer(defaultRoutesText, cm.getConfig("default-delim"));
         List<String> defaultRoutesList = new ArrayList<String>();
 

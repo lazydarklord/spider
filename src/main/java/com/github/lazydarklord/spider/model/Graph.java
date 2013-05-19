@@ -155,6 +155,27 @@ public class Graph
         return inRoutes;
     }
 
+    public List<Station> getOutboundStations(Station station)
+    {
+        List<Station> outStations = null;
+
+        for (Route route : routes)
+        {
+            if (route.getSource().equals(station))
+            {
+                if (outStations == null)
+                {
+                    outStations = new ArrayList<Station>();
+                }
+
+                outStations.add(route.getDestination());
+            }
+        }
+
+        return outStations;
+    }
+
+
     /**
      * @return count of all stations in graph
      */

@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -381,16 +382,25 @@ public class JourneyPlannerView
      */
     private void hndlLoadFile()
     {
-        String filename;
-        String dir;
         fileChooser = new JFileChooser();
         int returnVal = fileChooser.showOpenDialog(frame);
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
-            filename = fileChooser.getSelectedFile().getName();
-            dir = fileChooser.getCurrentDirectory().toString();
-            lblResultCalculateDistance.setText(dir + filename);
-            statusLabel.setText("Loaded from file: " + dir + filename);
+            // get the selected file
+            File file = fileChooser.getSelectedFile();
+            
+            // create a new graph
+            GraphManager gm = new GraphManager();
+            if(gm.loadGraph(file))
+            {
+                // loading graph from file worked, update the Journey Planner 
+                jp.setGraph(gm.getGraph());
+                statusLabel.setText("Loaded from file: " + file.getAbsolutePath());
+            }
+            else
+            {
+                statusLabel.setText("Failed to loaded from file: " + file.getAbsolutePath());
+            }
         }
     }
 
@@ -456,7 +466,7 @@ public class JourneyPlannerView
         }
         else
         {
-            result = "<html>Trips";
+            result = "<html>Trips: "+trips.size();
 
             int tripCounter = 0;
             for (Trip trip : trips.toArray(new Trip[0]))
@@ -464,6 +474,10 @@ public class JourneyPlannerView
                 tripCounter++;
                 result += "<br/>" + tripCounter + ": ";
                 int hopCounter = 0;
+                
+                List<Route> hops = trip.getHops();
+                int hopCount = trip.getHopCount();
+                
                 for (Route hop : trip.getHops())
                 {
                     if (hopCounter == 0)

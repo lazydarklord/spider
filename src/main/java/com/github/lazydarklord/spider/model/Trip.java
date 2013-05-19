@@ -22,6 +22,22 @@ public class Trip
     }
 
     /**
+     * Copy constructor
+     * 
+     * @param another Another trip to copy data from
+     */
+    public Trip(Trip another)
+    {
+        if (another != null)
+        {
+            this.source = another.source;
+            this.destination = another.destination;
+            this.distance = another.distance;
+            this.hops = another.hops;
+        }
+    }
+
+    /**
      * @return the number of hops from source to destination
      */
     public int getHopCount()
@@ -48,6 +64,8 @@ public class Trip
     {
         if (this.hops.size() > 1)
         {
+            //this.destination = this.hops.get(this.hops.size() - 1).source;
+            //this.distance -= this.hops.get(this.hops.size() - 1).distance;
             return this.hops.remove(this.hops.size() - 1);
         }
 

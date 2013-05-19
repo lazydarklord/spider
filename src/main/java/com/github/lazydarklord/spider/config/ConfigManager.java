@@ -1,8 +1,5 @@
 package com.github.lazydarklord.spider.config;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -14,27 +11,25 @@ public class ConfigManager
     /** Singleton instance. */
     private static ConfigManager instance;
 
-    Properties properties = new Properties();
-
     /** Dictionary of all the configs. */
-    private HashMap<String, String> config;
+    Properties properties = new Properties();
 
     /**
      * Instantiates a new config manager.
      */
     private ConfigManager()
     {
-        config = new HashMap<String, String>();
+        // try
+        // {
+        // properties.load(new FileInputStream("./src/main/resources/spec.txt"));
+        // }
+        // catch (IOException e)
+        // {
+        // System.out.println("Could not load config" + System.getProperty("user.dir"));
+        // }
 
-        try
-        {
-            properties.load(new FileInputStream("./src/main/resources/spec.txt"));
-        }
-        catch (IOException e)
-        {
-            System.out.println("Could not load config"+System.getProperty("user.dir"));
-            initHardCodedConfigs();
-        }
+        // TODO: move this line into catch block
+        initHardCodedConfigs();
     }
 
     /**
@@ -56,12 +51,13 @@ public class ConfigManager
      */
     private void initHardCodedConfigs()
     {
-        config.put("default-delim", ","); // default delimiter
-        config.put("input-calc-delim", "-"); // delimiter for calculate distance input
-        config.put("input-trips-delim", " to,"); // delimiter for all trips input
-        config.put("input-shortest-delim", " to,"); // delimiter for shortest route input
-        config.put("default-routes",
+        this.properties.setProperty("default-delim", ","); // default delimiter
+        this.properties.setProperty("input-calc-delim", "-"); // delimiter for calculate distance input
+        this.properties.setProperty("input-trips-delim", " to,"); // delimiter for all trips input
+        this.properties.setProperty("input-shortest-delim", " to,"); // delimiter for shortest route input
+        this.properties.setProperty("default-routes",
             "AB12,AD19,AE20,AG16,BC5,BD13,BI15,CD5,DE7,EF5,FA5,GF11,HA4,HB19,HG6,IJ10,IH21,JB7,JC15"); // default routes
+        this.properties.setProperty("default-routes-short", "AB1,AC1,CB1,BD1"); // default routes for a short graph
     }
 
     /**
@@ -74,5 +70,4 @@ public class ConfigManager
     {
         return this.properties.getProperty(key);
     }
-
 }
